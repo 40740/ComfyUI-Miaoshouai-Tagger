@@ -113,7 +113,10 @@ class Tagger:
         attention = 'sdpa'
         precision = 'fp16'
 
-        device = mm.get_torch_device()
+        #device = mm.get_torch_device()
+        # 指定GPU编号，例如使用第一个GPU
+        gpu_id = 1
+        device = torch.device(f"cuda:{gpu_id}" if torch.cuda.is_available() else "cpu")
         offload_device = mm.unet_offload_device()
         dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}[precision]
 
